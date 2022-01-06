@@ -145,7 +145,6 @@ function App() {
           setError={setError}
           errorMsg={errorMsg}
           createUser={createUser}
-          scrollPosition={scrollPosition}
           />
         <UserContext.Provider value={{userName, avatarSrc, draft, contacts}}>
           <Content deleteUser={index=>deleteUser(index)}/>

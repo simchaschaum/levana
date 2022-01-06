@@ -16,20 +16,23 @@
     color: var(--clr-light);
     width: 100%;
     display: flex;
+    position: sticky;
+    top: -75px;
+    height: 150px;
+    z-index: 100;
+
+}
+.tall{
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.tall-header {
-    height: 150px;
-    flex-direction: column;
-}
-.short-header{
-    position: fixed;
-    transition: opacity 0.25s ease-in-out;
-    height: fit-content;
-    justify-content: space-between;
-    padding: 10px 0;
-    z-index: 100;
+.short{
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding: 2.5% 0;
+    box-shadow: 0 0 15px var(--clr-light);
 }
 .short-header>*{
     margin: 0 50px
@@ -116,6 +119,16 @@ div#avatar{
     flex-direction: column;
     align-items: center;
 }
+#contentContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+@media(max-width:700px){
+    #contentContainer{
+        justify-content: center ;
+    }
+}
 #content>h2{
     color: var(--clr-red);
     margin-top: 5%;
@@ -128,8 +141,7 @@ div#avatar{
 }
 .contact,
 #newContact{
-    width: 75%;
-    margin: 5% auto;
+    margin: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -143,6 +155,7 @@ div#avatar{
     }
     .contact{
         padding: 0 5%;
+        width: 75%;
     }
 }
 .contact:hover{

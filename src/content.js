@@ -20,14 +20,16 @@ const Content = ({deleteUser}) => {
             <p><em>Username:</em> <strong>{userName}</strong></p>
         </div> : null}
         <h2><em>Current Contacts:</em></h2>
-        {contacts.map((item,index) => (
-            <Contact 
-                item={item}
-                index={index}
-                key={`contact-${index}`}
-                handleDelete={()=>handleDelete(index)}
-            />
-        ))}
+        <div id="contentContainer">
+            {contacts.map((item,index) => (
+                <Contact 
+                    item={item}
+                    index={index}
+                    key={`contact-${index}`}
+                    handleDelete={()=>handleDelete(index)}
+                />
+            ))}
+        </div>
     </div>
     )
 }

@@ -1,9 +1,8 @@
 import  Spinner  from "react-bootstrap/Spinner";
 
 const Sidebar = (props) => {
-    let fixed = props.scrollPosition > 160 ? "fixed" : null;
 
-    return(<div id="sideBar" className={fixed}>
+    return(<div id="sideBar" >
         <input type="text" id="nameInput" placeholder="Type new username" value={props.userName} onChange={e=>props.handleInputChange(e)}/>
         <div id="avatar">
             {props.spinner ? 
