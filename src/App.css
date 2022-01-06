@@ -31,7 +31,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-end;
-    padding: 2.5% 0;
+    padding: 1% 0;
     box-shadow: 0 0 15px var(--clr-light);
 }
 .short-header>*{
@@ -120,6 +120,7 @@ div#avatar{
     align-items: center;
 }
 #contentContainer{
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -141,20 +142,24 @@ div#avatar{
 }
 .contact,
 #newContact{
+    width: 45%;
+    min-width: 310px;
     margin: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
     box-shadow: 0 0 2.5px var(--clr-red);
+    padding: 2.5%
 }
 @media(max-width: 700px){
     #newContact img{
         width: 50%;
         margin-bottom: 5%;
     }
+    #newContact,
     .contact{
-        padding: 0 5%;
+        padding: 5%;
         width: 75%;
     }
 }

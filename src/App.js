@@ -33,7 +33,6 @@ function App() {
         setTimeout(()=>{
             let currentValue = document.getElementById("nameInput").value;
             if(currentValue === userName){
-                console.log(checkUserNameTaken())
                 if(!checkUserNameTaken()){
                   getAvatar();
                   setSpinner(false);

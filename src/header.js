@@ -9,7 +9,7 @@ const Header = (props) => {
 
     return(<div id="header" className={short}>
         <h1>Contacts</h1>
-        <h3>Generated Contacts: {contacts.length}</h3>
+        <h3><em>Generated Contacts: {contacts.length}</em></h3>
     </div>)
 }
 

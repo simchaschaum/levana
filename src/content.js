@@ -14,12 +14,13 @@ const Content = ({deleteUser}) => {
 
     return(
     <div id="content">
+        <h2><em>Current Contacts:</em></h2>
         {draft ? <div id="newContact" className="half-opacity">
             {avatarSrc.length > 0 ?  <img src={avatarSrc} alt={"avatar"} /> : null}
             {avatarSrc.length > 0 ?   null :  <h3><em>Typing new contact:</em></h3>}
             <p><em>Username:</em> <strong>{userName}</strong></p>
         </div> : null}
-        <h2><em>Current Contacts:</em></h2>
+        {contacts.length === 0 ? <h4><em>No contacts yet.</em></h4> : null}
         <div id="contentContainer">
             {contacts.map((item,index) => (
                 <Contact 
