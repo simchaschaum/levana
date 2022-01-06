@@ -1,9 +1,10 @@
 import  Spinner  from "react-bootstrap/Spinner";
 
 const Sidebar = (props) => {
+    let fixed = props.scrollPosition > 160 ? "fixed" : null;
 
-    return(<div id="sideBar">
-        <input type="text" id="nameInput" value={props.userName} onChange={e=>props.handleInputChange(e)}/>
+    return(<div id="sideBar" className={fixed}>
+        <input type="text" id="nameInput" placeholder="Type new username" value={props.userName} onChange={e=>props.handleInputChange(e)}/>
         <div id="avatar">
             {props.spinner ? 
             <Spinner animation="border" role="status">
@@ -11,10 +12,10 @@ const Sidebar = (props) => {
             </Spinner>
             : null
             }
-            {props.error ? <p id="error">Sorry! Something went wrong.<br/> Please retype your name and try again.</p> : null}
+            {props.error ? <p id="error">{props.errorMsg}</p> : null}
             {props.avatarSrc.length > 0 ? <img id="avatar" src={props.avatarSrc} alt={"avatar"}/> : null}
         </div>
-        {props.avatarSrc.length > 0 ? <button onClick={props.createUser }>Create User</button> : null}
+        {props.avatarSrc.length > 0 ? <button id="createUser" onClick={props.createUser }>Create User</button> : null}
         
     </div>)
 }

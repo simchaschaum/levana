@@ -14,10 +14,12 @@ const Content = ({deleteUser}) => {
 
     return(
     <div id="content">
-        {draft ? <div className="half-opacity">
+        {draft ? <div id="newContact" className="half-opacity">
             {avatarSrc.length > 0 ?  <img src={avatarSrc} alt={"avatar"} /> : null}
-            <p>{userName}</p>
+            {avatarSrc.length > 0 ?   null :  <h3><em>Typing new contact:</em></h3>}
+            <p><em>Username:</em> <strong>{userName}</strong></p>
         </div> : null}
+        <h2><em>Current Contacts:</em></h2>
         {contacts.map((item,index) => (
             <Contact 
                 item={item}
@@ -26,7 +28,6 @@ const Content = ({deleteUser}) => {
                 handleDelete={()=>handleDelete(index)}
             />
         ))}
-   
     </div>
     )
 }

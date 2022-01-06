@@ -2,20 +2,103 @@
     box-sizing: border-box;
     padding: 0
 }
+*:focus{
+    outline: 2px solid var(--clr-light)
+}
 
+:root{
+    --clr-red: #871518;
+    --clr-light: #FDBFC1
+}
+/* HEADER */
+#header{
+    background-color: var(--clr-red);
+    color: var(--clr-light);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tall-header {
+    height: 150px;
+    flex-direction: column;
+}
+.short-header{
+    position: fixed;
+    transition: opacity 0.25s ease-in-out;
+    height: fit-content;
+    justify-content: space-between;
+    padding: 10px 0;
+    z-index: 100;
+}
+.short-header>*{
+    margin: 0 50px
+}
+@media(max-width: 700px){
+    .short-header h1{
+        font-size: 1.5em;
+    }
+    .short-header h3{
+        font-size: 1em;
+    }
+}
+/* CONTAINER (everything below the header) */
+#container{
+    display: flex;
+}
+@media(max-width:700px){
+    #container{
+        flex-direction: column;
+    }
+}
 /* SIDEBAR */
 #sideBar{
+    flex: 1;
+    padding: 2.5%;
     display: flex;
     flex-direction: column;
 }
 div#avatar{
     height: 300px;
-    width: 300px;
-    border: 1px red solid;
+    width: 100%;
     position: relative;
+    box-shadow: 0 0 2.5px var(--clr-red);
+}
+@media(max-width:700px){
+    #sideBar{
+        width: 75%;
+        margin: 0 auto;
+        padding: 5% 0 0 0;
+    }
+    div#avatar{
+        display: flex;
+        justify-content: center;
+    }
+    div#avatar img{
+        width: 50%;
+    }
+}
+#nameInput{
+    margin-bottom: 10px;
+    padding: 5%;
+    border: 0;
+    border-radius: 2.5px;
+    background-color: var(--clr-red);
+    color: var(--clr-light);
+}
+#nameInput::placeholder{
+    color:var(--clr-light)
+}
+#createUser{
+    margin-top: 10px;
+    border-radius: 2.5px;
+    background-color: var(--clr-red);
+    border: none;
+    color: var(--clr-light);
+    padding: 5%
 }
 .spinner-border{
-    color: gray;
+    color: var(--clr-red);
     position: absolute;
     top: 45%;
     left: 45%;
@@ -28,9 +111,46 @@ div#avatar{
 
 /* CONTENT */
 #content{
-    border: blue 1px solid
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-
+#content>h2{
+    color: var(--clr-red);
+    margin-top: 5%;
+}
+#newContact>h3{
+    color: var(--clr-red)
+}
 .half-opacity{
     opacity: 50%;
 }
+.contact,
+#newContact{
+    width: 75%;
+    margin: 5% auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 0 2.5px var(--clr-red);
+}
+@media(max-width: 700px){
+    #newContact img{
+        width: 50%;
+        margin-bottom: 5%;
+    }
+    .contact{
+        padding: 0 5%;
+    }
+}
+.contact:hover{
+    box-shadow: 0 0 5px var(--clr-red);
+}
+.contact img{
+    width: 50%;
+    margin-bottom: 5%;
+}
+
+

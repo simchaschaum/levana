@@ -3,9 +3,9 @@ import './App.css';
 import Content from './content';
 import Header from './header';
 import Sidebar from './sidebar';
-import React, {useState, useEffect, createContext} from 'react';
+import {useState, useEffect, createContext} from 'react';
 
-export const UserContext = React.createContext();
+export const UserContext = createContext();
 
 function App() {
 
@@ -13,16 +13,37 @@ function App() {
   const [avatarSrc, setAvatarSrc] = useState('');
   const [spinner, setSpinner] = useState(false);
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(`Enter a username to generate a new contact.`)
   const [draft, setDraft] = useState(false);
   const [contacts, setContacts] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const checkUserNameTaken = () => {
+    let tf = false;
+    contacts.forEach(item => {
+      if(item.userName.toUpperCase().trim() === userName.toUpperCase().trim()){
+        tf = true;
+      }
+    });
+    return tf;
+  }
 
   useEffect(()=> {
     if(userName.length>0){
         setTimeout(()=>{
             let currentValue = document.getElementById("nameInput").value;
             if(currentValue === userName){
-                getAvatar();
-                setSpinner(false)
+                console.log(checkUserNameTaken())
+                if(!checkUserNameTaken()){
+                  getAvatar();
+                  setSpinner(false);
+                } else {
+                  setError(true);
+                  setErrorMsg(`Sorry! That username is already taken.`);
+                  setAvatarSrc("");
+                  setSpinner(false);
+                  setDraft(false);
+                }
             }
         },2000)
     } else {
@@ -31,6 +52,17 @@ function App() {
         setDraft(false);
     }
   },[userName]);
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  }
+  useEffect(()=>{
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+          window.removeEventListener("scroll", handleScroll)
+      }
+  },[])
 
   useEffect(()=>{
     if(localStorage.getItem("contacts") !== null){
@@ -48,6 +80,8 @@ function App() {
       const response = await fetch(url1 + userName + url2);
       if(!response.ok){
           setError(true);
+          setErrorMsg(`Sorry! Something went wrong.
+          Please try again.`);
           let message = `Sorry! An error has occured. ${response.status}`;
           throw new Error(message);
       } else {
@@ -59,6 +93,7 @@ function App() {
     setError(false);
     setSpinner(true);
     setDraft(true);
+    setAvatarSrc("");
     setUserName(e.target.value);
   }
 
@@ -67,6 +102,8 @@ function App() {
     const response = await fetch('https://randomuser.me/api/?seed=' + userName);
     if(!response.ok){
       setError(true);
+      setErrorMsg(`Sorry! Something went wrong.
+      Please try again.`);
       let message = `Sorry! An error has occured. ${response.status}`;
       throw new Error(message);
     } else {
@@ -94,22 +131,26 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={{contacts}}>
-        <Header />
+      <UserContext.Provider value={{contacts, scrollPosition}}>
+        <Header setScrollPosition={position => setScrollPosition(position)}/>
       </UserContext.Provider >
-      <Sidebar 
-        handleInputChange={(e)=>handleInputChange(e)}
-        userName={userName}
-        setUserName={setUserName}
-        avatarSrc={avatarSrc}
-        spinner={spinner}
-        error={error}
-        setError={setError}
-        createUser={createUser}
-        />
-      <UserContext.Provider value={{userName, avatarSrc, draft, contacts}}>
-        <Content deleteUser={index=>deleteUser(index)}/>
-      </UserContext.Provider>
+      <div id="container">
+        <Sidebar 
+          handleInputChange={(e)=>handleInputChange(e)}
+          userName={userName}
+          setUserName={setUserName}
+          avatarSrc={avatarSrc}
+          spinner={spinner}
+          error={error}
+          setError={setError}
+          errorMsg={errorMsg}
+          createUser={createUser}
+          scrollPosition={scrollPosition}
+          />
+        <UserContext.Provider value={{userName, avatarSrc, draft, contacts}}>
+          <Content deleteUser={index=>deleteUser(index)}/>
+        </UserContext.Provider>
+      </div>
     </div>
   );
 }

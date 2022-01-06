@@ -1,11 +1,13 @@
 import { UserContext } from "./App";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
-const Header = () => {
+const Header = (props) => {
 
-    const {contacts} = useContext(UserContext);
+    const {contacts, scrollPosition} = useContext(UserContext);
 
-    return(<div>
+    let height = scrollPosition < 160 ? "tall-header" : "short-header"
+
+    return(<div id="header" className={height}>
         <h1>Contacts</h1>
         <h3>Generated Contacts: {contacts.length}</h3>
     </div>)
